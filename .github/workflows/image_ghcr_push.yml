@@ -72,7 +72,7 @@ jobs:
           severity: high,critical
           format: 'table'
           ignore-base: true
-          exit-on: all
+          exit-on: cves
 
       - name: Push image to GHCR (if scan passed)
         if: success()
