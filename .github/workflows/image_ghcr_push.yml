@@ -63,14 +63,16 @@ jobs:
           cache-to: |
             type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/weather-app:cache,mode=max
           ssh: 'default'
-      
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@master
+
+      - name: Scan image with Docker Scout
+        uses: docker/scout-action@v1
         with:
-          image-ref: local-weather-app:testscan
-          format: 'table'
-          exit-code: 1
-          severity: 'CRITICAL,HIGH'
+          command: cves
+          image: local-weather-app:testscan
+          severity: high,critical
+          exit-on: advisory-count
+            ignore-base
+
 
      
       - name: Push image to GHCR (if scan passed)
