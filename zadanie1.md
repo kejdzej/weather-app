@@ -127,3 +127,4 @@ docker logs pogoda
 docker image inspect pogoda-app --format '{{.RootFS.Layers}}'
 docker image ls pogoda-app
 ```
+.
