@@ -70,11 +70,10 @@ jobs:
           command: cves
           image: local-weather-app:testscan
           severity: high,critical
-          exit-on: advisory-count
-            ignore-base
+          format: 'table'
+          ignore-base: true
+          exit-on: all
 
-
-     
       - name: Push image to GHCR (if scan passed)
         if: success()
         uses: docker/build-push-action@v5
