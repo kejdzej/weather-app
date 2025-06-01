@@ -69,7 +69,7 @@ jobs:
         with:
           command: cves
           image: local-weather-app:testscan
-          severity: high,critical
+          only-severities: high,critical
           format: 'table'
           ignore-base: true
           exit-code: 1
