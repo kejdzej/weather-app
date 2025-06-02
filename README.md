@@ -31,7 +31,6 @@ Celem projektu jest stworzenie pipeline’u CI/CD w usłudze GitHub Actions, kt�
   - `:sha-<short-sha>` – dla identyfikowalności wersji.
   - `:vX.Y.Z` – dla wydań semantycznych (np. `v1.0.0`).
   - `:latest` – dla najnowszej wersji.
-- Nazwa repozytorium konwertowana na małe litery, aby uniknąć błędów.
 
 ### 5. Zarządzanie cache
 - Cache przechowywany w `${DOCKERHUB_USERNAME}/weather-app:cache` z użyciem eksportera i backendu `registry` w trybie `max`.
