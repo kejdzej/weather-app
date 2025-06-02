@@ -36,7 +36,7 @@ Celem projektu jest stworzenie pipeline’u CI/CD w usłudze GitHub Actions, kt�
 - Cache przechowywany w `${DOCKERHUB_USERNAME}/weather-app:cache` z użyciem eksportera i backendu `registry` w trybie `max`.
 - Pojedynczy tag `:cache` upraszcza zarządzanie i minimalizuje ryzyko błędów w pipeline’ie
 
-## Tagowanie – Uzasadnienie
+## Tagowanie
 - **SHA**: Tag `:sha-<short-sha>` zapewnia jednoznaczną identyfikację wersji obrazu, ułatwiając traceability
 - **SemVer**: Tag `:vX.Y.Z` wspiera wersjonowanie produkcyjne, zgodne ze standardami branżowymi.
 - **Latest**: Tag `:latest` umożliwia szybkie testowanie najnowszej wersji.
