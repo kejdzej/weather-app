@@ -24,19 +24,21 @@ Celem projektu jest stworzenie pipeline’u CI/CD w usłudze GitHub Actions, kt�
 ### 3. Budowanie i skanowanie obrazu
 - Budowa obrazu `local-weather-app:testscan` dla `linux/amd64` z użyciem multi-stage `Dockerfile` (optymalizacja poprzez `python:3.12-slim` i aktualizacje `libc-bin`, `zlib1g`).
 - Skanowanie za pomocą Trivy (`aquasecurity/trivy-action@master`), które kończy pipeline błędem w przypadku wykrycia podatności `CRITICAL` lub `HIGH`.
+- Trivy wybrano ze względu na otwartoźródłowość, prostotę integracji z GitHub Actions i brak potrzeby subskrypcji, w przeciwieństwie do Docker Scout, który wymaga dodatkowej konfiguracji (źródło: [Trivy Documentation](https://aquasecurity.github.io/trivy/)).
 
 ### 4. Publikacja obrazu
 - Po pomyślnym skanowaniu obraz jest budowany dla `linux/amd64` i `linux/arm64` i publikowany do `ghcr.io/hubertkwiatkowski/weather-app` z tagami:
   - `:sha-<short-sha>` – dla identyfikowalności wersji.
   - `:vX.Y.Z` – dla wydań semantycznych (np. `v1.0.0`).
   - `:latest` – dla najnowszej wersji.
+- Nazwa repozytorium konwertowana na małe litery, aby uniknąć błędów.
 
 ### 5. Zarządzanie cache
 - Cache przechowywany w `${DOCKERHUB_USERNAME}/weather-app:cache` z użyciem eksportera i backendu `registry` w trybie `max`.
-- Pojedynczy tag `:cache` upraszcza zarządzanie i minimalizuje ryzyko błędów w pipeline’ie
+- Pojedynczy tag `:cache` upraszcza zarządzanie i minimalizuje ryzyko błędów w pipeline’ie (źródło: [Docker Build Cache](https://docs.docker.com/build/cache/backends/registry/)).
 
-## Tagowanie
-- **SHA**: Tag `:sha-<short-sha>` zapewnia jednoznaczną identyfikację wersji obrazu, ułatwiając traceability
+## Tagowanie – Uzasadnienie
+- **SHA**: Tag `:sha-<short-sha>` zapewnia jednoznaczną identyfikację wersji obrazu, ułatwiając traceability (źródło: [Docker Best Practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)).
 - **SemVer**: Tag `:vX.Y.Z` wspiera wersjonowanie produkcyjne, zgodne ze standardami branżowymi.
 - **Latest**: Tag `:latest` umożliwia szybkie testowanie najnowszej wersji.
 - **Cache**: Stały tag `:cache` upraszcza konfigurację i zapewnia spójność.
